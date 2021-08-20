@@ -1,16 +1,15 @@
 package boardlayer;
 
 public class Piece {
-    
+
     protected Position position;
     private Board board;
 
-
-    public Piece(){
+    public Piece() {
     }
 
     // A posição de uma peça recém-criada é null.(não foi colocada no tabuleiro ainda.)
-    public Piece(Board board){
+    public Piece(Board board) {
         this.board = board;
         position = null;
     }
@@ -19,6 +18,6 @@ public class Piece {
     protected Board getBoard() {
         return board;
     }
-      
-    //Não há setBoard pois as peças não poderão ser transferidas de tabuleiro.
+
+    // Não há setBoard pois as peças não poderão ser transferidas de tabuleiro.
 }
