@@ -1,5 +1,5 @@
 # Tabuleiro de Xadrez (em andamento)
-Projeto de partida de xadrez - Feito 100% em java
+Projeto de partida de xadrez feito no curso de Java -  100% java
 
 O programa objetiva simular uma partida de xadrez, obedecendo todas as regras do jogo. No estágio atual, o programa está apenas sendo estruturado em camadas para posteriormente ir recebendo as instruções lógicas. O tabuleiro de xadrez é criado e manuseado através de uma matriz bidimensional, que é definida como 8x8. Toda a inteligência à respeito do jogo será colocada dentro de uma interação com matriz.
 

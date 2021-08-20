@@ -25,13 +25,18 @@ public class ChessMatch {
         return mat;
     }
 
+    // Método para possibilitar a inserção de peças usando as posições do tabuleiro, e não mais da matriz (extingue o uso direto de placePiece)
+    private void placeNewPiece(char column, int row, ChessPiece piece) {
+        board.placePiece(piece, new ChessPosition(column, row).toPosition());
+    }
+
     // Organiza as peças em suas respectivas posições ao inicio de uma partida.
     private void initialSetup() {
-        board.placePiece(new Rook(board, Color.WHITE), new Position(0, 0));
-        board.placePiece(new Rook(board, Color.WHITE), new Position(0, 7));
+        placeNewPiece('a', 1, new Rook(board, Color.WHITE));
+        placeNewPiece('h', 1, new Rook(board, Color.WHITE));
 
-        board.placePiece(new Rook(board, Color.BLACK), new Position(7, 0));
-        board.placePiece(new Rook(board, Color.BLACK), new Position(7, 7));
+        placeNewPiece('a', 8, new Rook(board, Color.BLACK));
+        placeNewPiece('h', 8, new Rook(board, Color.BLACK));
     }
 
 }
