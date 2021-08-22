@@ -1,5 +1,6 @@
 package application;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import chesslayer.*;
 
@@ -11,20 +12,30 @@ public class Program {
         ChessMatch chessMatch = new ChessMatch();
 
         while(true) {
-            UI.printBoard(chessMatch.getPieces());
-            System.out.println();
-            System.out.print("Source: ");
-            ChessPosition source = UI.readChessPosition(sc);
+            try{
+                UI.clearScreen();
+                UI.printBoard(chessMatch.getPieces());
+                System.out.println();
+                System.out.print("Source: ");
+                ChessPosition source = UI.readChessPosition(sc);
 
-            System.out.println();
-            System.out.print("Target: ");
-            ChessPosition target = UI.readChessPosition(sc);
+                System.out.println();
+                System.out.print("Target: ");
+                ChessPosition target = UI.readChessPosition(sc);
 
-            ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
-
-            System.out.println();
+                ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
+            }
+            catch(ChessException e){
+                System.out.println("CE: " + e.getMessage());
+                sc.nextLine();
+                // Para o programa esperar o user apertar "Enter" para prosseguir.
+            }
+            catch(InputMismatchException e){
+                System.out.println("IME: " + e.getMessage());
+                sc.nextLine();
+            }
         }
-        
+               
     //sc.close();
     }
 }

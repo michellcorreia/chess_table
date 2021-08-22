@@ -26,6 +26,7 @@ public class ChessMatch {
         return mat;
     }
 
+    // Valida a existencia da peça, faz o movimento e retorna a peça capturada (se existir)
     public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
         Position source = sourcePosition.toPosition();
         Position target = targetPosition.toPosition();
@@ -35,6 +36,7 @@ public class ChessMatch {
         return (ChessPiece)capturedPiece;
     }
 
+    // Realiza o movimento da peça, captura e retorna a peça capturada (se existir)
     private Piece makeMove(Position source, Position target) {
         Piece p = board.removePiece(source);
         Piece capturedPiece = board.removePiece(target);
@@ -42,6 +44,7 @@ public class ChessMatch {
         return capturedPiece;
     }
 
+    // Valida se realmente existe uma peça na posição de origem.
     private void validateSourcePosition(Position sourcePosition) {
         if(!board.thereIsAPiece(sourcePosition)) {
             throw new ChessException("There is no piece on source position.");
