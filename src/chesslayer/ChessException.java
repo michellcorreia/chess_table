@@ -1,9 +1,11 @@
 package chesslayer;
 
-public class ChessException extends RuntimeException {
+import boardlayer.BoardException;
 
-    public ChessException(String msg){
+public class ChessException extends BoardException {
+
+    public ChessException(String msg) {
         super(msg);
     }
-    
+
 }

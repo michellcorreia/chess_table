@@ -3,13 +3,12 @@ package chesslayer;
 import boardlayer.Position;
 
 public class ChessPosition {
-    
+
     private char column;
     private int row;
 
-
     public ChessPosition(char column, int row) {
-        if(column < 'a' || column > 'h' || row < 1 || row > 8) {
+        if (column < 'a' || column > 'h' || row < 1 || row > 8) {
             throw new ChessException("Error instanciating ChessPosition, valid values are from a1 to h8.");
         }
         this.column = column;
@@ -24,18 +23,19 @@ public class ChessPosition {
         return row;
     }
 
-    //Converte a positção de ChessPosition para Position
+    // Converte a positção de ChessPosition para Position
     protected Position toPosition() {
-        return new Position((8 - row), (column - 'a'));  
+        return new Position((8 - row), (column - 'a'));
     }
-    //Converte a posição de Position para ChessPosition
+
+    // Converte a posição de Position para ChessPosition
     protected static ChessPosition fromPosition(Position position) {
-        return new ChessPosition((char)('a' - position.getColumn()), (8 - position.getRow()));
+        return new ChessPosition((char) ('a' + position.getColumn()), (8 - position.getRow()));
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "" + column + row;
-        //Macete para forçar a concatenação de Strings
+        // Macete para forçar a concatenação de Strings
     }
 }
