@@ -52,7 +52,7 @@ public class Board {
         if (!positionExists(position)) {
             throw new BoardException("Position not on the board");
         }
-        if (!thereIsAPiece(position)) {
+        if (piece(position) == null) {
             return null;
         }
         // O método remove a peça da posição, guarda essa peça em uma variável auxiliar

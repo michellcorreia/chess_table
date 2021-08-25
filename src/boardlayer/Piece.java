@@ -22,7 +22,7 @@ public abstract class Piece {
     }
     // Não há setBoard pois as peças não poderão ser transferidas de tabuleiro.
 
-    // Método abstrato que cria uma matriz booleana
+    // Método abstrato que retorna uma matriz booleana
     public abstract boolean[][] possibleMoves();
 
     // Método concreto que puxa o método abstrato para checar uma posição na matriz

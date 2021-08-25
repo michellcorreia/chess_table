@@ -2,7 +2,10 @@ package application;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import boardlayer.BoardException;
 import chesslayer.*;
+import chesslayer.pieces.*;
 
 
 public class Program {
@@ -19,6 +22,10 @@ public class Program {
                 System.out.print("Source: ");
                 ChessPosition source = UI.readChessPosition(sc);
 
+                boolean[][] possibleMoves = chessMatch.possibleMoves(source);
+                UI.clearScreen();
+                UI.printBoard(chessMatch.getPieces(), possibleMoves);
+
                 System.out.println();
                 System.out.print("Target: ");
                 ChessPosition target = UI.readChessPosition(sc);
@@ -32,6 +39,10 @@ public class Program {
             }
             catch(InputMismatchException e){
                 System.out.println("IME: " + e.getMessage());
+                sc.nextLine();
+            }
+            catch(BoardException e){
+                System.out.println("BE: " + e.getMessage());
                 sc.nextLine();
             }
         }
