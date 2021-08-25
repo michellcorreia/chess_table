@@ -2,6 +2,8 @@ package application;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import chesslayer.ChessMatch;
 import chesslayer.ChessPiece;
 import chesslayer.ChessPosition;
 import chesslayer.Color;
@@ -44,6 +46,15 @@ public class UI {
         catch (RuntimeException e) {
             throw new InputMismatchException("Error reading chess position. Valid values are from a1 to h8.");
         }
+    }
+
+    // Exibe todas as informações pertinentes à partida de xadrez.
+    public static void printMatch(ChessMatch chessMatch) {
+        printBoard(chessMatch.getPieces());
+        System.out.println();
+        System.out.println("Turn: " + chessMatch.getTurn());
+        System.out.println("Waiting Player: " + chessMatch.getCurrentPlayer());
+
     }
 
     // Exibição do tabuleiro e suas peças/espaços.

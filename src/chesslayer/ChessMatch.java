@@ -6,13 +6,25 @@ import chesslayer.pieces.Rook;
 
 public class ChessMatch {
 
+    private int turn;
+    private Color currentPlayer;
     private Board board;
 
     // Define as dimensões do tabuleiro, e chama o initialSetup para organizar as
     // peças em suas posições iniciais.
     public ChessMatch() {
         board = new Board(8, 8);
+        turn = 1;
+        currentPlayer = Color.WHITE;
         initialSetup();
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public Color getCurrentPlayer() {
+        return currentPlayer;
     }
 
     // Transfere toda a matriz pieces[][](Tipo Piece) para mat[][](Tipo ChessPieces)
@@ -41,6 +53,7 @@ public class ChessMatch {
         validateSourcePosition(source);
         validateTargetPosition(source, target);
         Piece capturedPiece = makeMove(source, target);
+        nextTurn();
         return (ChessPiece)capturedPiece;
     }
 
@@ -57,15 +70,26 @@ public class ChessMatch {
         if(!board.thereIsAPiece(sourcePosition)) {
             throw new ChessException("There is no piece on source position.");
         }
+        if(currentPlayer != ((ChessPiece)board.piece(sourcePosition)).getColor()) {
+            throw new ChessException("The chosen piece doesn't belong to you.");
+        }
+
         if(!board.piece(sourcePosition).isThereAnyPossibleMove()) {
             throw new ChessException("There are no possible moves for the chosen piece.");
         }
+        
     }
 
     private void validateTargetPosition(Position source, Position target) {
         if(!board.piece(source).possibleMove(target)) {
             throw new ChessException("The chosen piece can´t move to target position.");
         }
+    }
+
+    private void nextTurn() {
+        turn ++;
+        // Se o jogador atual é o branco, então agora será o preto.. caso contrário, será o branco.
+        currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
     }
 
     // Método para possibilitar a inserção de peças usando as posições do tabuleiro,
