@@ -49,10 +49,11 @@ public class Program {
                 System.out.println("BE: " + e.getMessage());
                 sc.nextLine();
             }
+            
         }
         UI.clearScreen();
         UI.printMatch(chessMatch, captured);
-        
+
         
 
     sc.close();
