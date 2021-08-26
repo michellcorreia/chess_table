@@ -1,5 +1,8 @@
 package chesslayer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import boardlayer.*;
 import chesslayer.pieces.King;
 import chesslayer.pieces.Rook;
@@ -10,8 +13,11 @@ public class ChessMatch {
     private Color currentPlayer;
     private Board board;
 
-    // Define as dimensões do tabuleiro, e chama o initialSetup para organizar as
-    // peças em suas posições iniciais.
+    private List<Piece> piecesOnTheBoard = new ArrayList<>();
+    private List<Piece> capturedPieces = new ArrayList<>();
+
+
+    // Configura toda a lógica inicial da partida.
     public ChessMatch() {
         board = new Board(8, 8);
         turn = 1;
@@ -45,16 +51,17 @@ public class ChessMatch {
         return board.piece(position).possibleMoves();
     }
 
-    // Valida a existencia da peça, faz o movimento e retorna a peça capturada (se existir)
+    // Valida a existencia da peça, faz o movimento e retorna a peça capturada (se
+    // existir)
     public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
         Position source = sourcePosition.toPosition();
         Position target = targetPosition.toPosition();
-        
+
         validateSourcePosition(source);
         validateTargetPosition(source, target);
         Piece capturedPiece = makeMove(source, target);
         nextTurn();
-        return (ChessPiece)capturedPiece;
+        return (ChessPiece) capturedPiece;
     }
 
     // Realiza o movimento da peça, captura e retorna a peça capturada (se existir)
@@ -62,33 +69,40 @@ public class ChessMatch {
         Piece p = board.removePiece(source);
         Piece capturedPiece = board.removePiece(target);
         board.placePiece(p, target);
+
+        if(capturedPiece != null){
+            piecesOnTheBoard.remove(capturedPiece);
+            capturedPieces.add(capturedPiece);
+        }
+
         return capturedPiece;
     }
 
     // Valida se realmente existe uma peça na posição de origem.
     private void validateSourcePosition(Position sourcePosition) {
-        if(!board.thereIsAPiece(sourcePosition)) {
+        if (!board.thereIsAPiece(sourcePosition)) {
             throw new ChessException("There is no piece on source position.");
         }
-        if(currentPlayer != ((ChessPiece)board.piece(sourcePosition)).getColor()) {
+        if (currentPlayer != ((ChessPiece) board.piece(sourcePosition)).getColor()) {
             throw new ChessException("The chosen piece doesn't belong to you.");
         }
 
-        if(!board.piece(sourcePosition).isThereAnyPossibleMove()) {
+        if (!board.piece(sourcePosition).isThereAnyPossibleMove()) {
             throw new ChessException("There are no possible moves for the chosen piece.");
         }
-        
+
     }
 
     private void validateTargetPosition(Position source, Position target) {
-        if(!board.piece(source).possibleMove(target)) {
+        if (!board.piece(source).possibleMove(target)) {
             throw new ChessException("The chosen piece can´t move to target position.");
         }
     }
 
     private void nextTurn() {
-        turn ++;
-        // Se o jogador atual é o branco, então agora será o preto.. caso contrário, será o branco.
+        turn++;
+        // Se o jogador atual é o branco, então agora será o preto.. caso contrário,
+        // será o branco.
         currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
     }
 
@@ -96,6 +110,7 @@ public class ChessMatch {
     // e não mais da matriz (extingue o uso direto de placePiece)
     public void placeNewPiece(char column, int row, ChessPiece piece) {
         board.placePiece(piece, new ChessPosition(column, row).toPosition());
+        piecesOnTheBoard.add(piece);
     }
 
     // Organiza as peças em suas respectivas posições ao inicio de uma partida.
