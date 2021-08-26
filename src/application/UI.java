@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import chesslayer.ChessMatch;
@@ -40,6 +39,7 @@ public class UI {
         System.out.flush();
     }
 
+    // Leitura do input do user, Instanciação do tipo ChessPosition.
     public static ChessPosition readChessPosition(Scanner sc) {
         try {
             String s = sc.nextLine();
@@ -59,6 +59,9 @@ public class UI {
         printCapturedPieces(captured);
         System.out.println("Turn: " + chessMatch.getTurn());
         System.out.println("Waiting Player: " + chessMatch.getCurrentPlayer());
+        if(chessMatch.getCheck()) {
+            System.out.println("CHECK!");
+        }
     }
 
     // Exibição do tabuleiro e suas peças/espaços.
